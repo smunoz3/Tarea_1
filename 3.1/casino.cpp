@@ -20,13 +20,15 @@ struct SaldoColaborado{  // estructura binario
 bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     bool n;
     n = true;
-    string servicio_salida ="h";
+    //string servicio_salida ="";
     ofstream file;
     file.open(consumos_dia+".txt",ios::app);
     if (!file.is_open()){
         cout<<"Error \n";exit(1);
-        }
-    if (SERV_DESAYUNO  ==  servicio){
+        };
+    string comidas_array [4];
+    comidas_array[0]="DESAYUNO";comidas_array[1]="ALMUERZO";comidas_array[2]="ONCE";comidas_array[3]="CENA";
+    /* if (SERV_DESAYUNO  ==  servicio){
         servicio_salida = "DESAYUNO";
     }
     else if   (SERV_ALMUERZO  ==  servicio){
@@ -39,9 +41,9 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
         servicio_salida = "CENA";
     }
     else {
-        servicio_salida = "Error PAPU :V\n";
-    }
-    file<<rut<<" "<<servicio_salida <<"\n";
+        servicio_salida = "Error PAPU :V\n"; 
+    }*/
+    file<<rut<<" "<<comidas_array[servicio] <<"\n";
 
 
     file.close();
