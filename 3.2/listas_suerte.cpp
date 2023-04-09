@@ -39,6 +39,16 @@ Persona* arregloPersonas(int& tamaño_array){
     return personas; 
 }
 
+void intercambiarTarjeta(Persona* p1, Persona* p2){
+    //Tengo un problema el cual hace que el arreglo de enteros "tarjeta", sea el largo del nombre de la persona,
+    //Pero esta se mantiene al intercambiar tarjetas, entonces si tienen diferentes tamaños
+    //Una queda mas larga y otra mas corta
+    int* holder;
+    holder = p1->tarjeta;
+    p1->tarjeta = p2->tarjeta;
+    p2->tarjeta = holder;
+}
+
 int main(){
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
     //*****************
@@ -53,8 +63,8 @@ int main(){
     //**********************
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
-
    //***********************
+   /*
     int tamaño_array;
     Persona* personas = arregloPersonas(tamaño_array);
     for (int i = 0; i<tamaño_array; i++){
@@ -71,11 +81,51 @@ int main(){
         cout << " " << personas[i].quiere_intercambiar << endl;
         delete personas[i].tarjeta;
     }
+    */
     //delete personas; //ACA ME TIRA EL ERROR Violación de segmento (`core' generado)
     //No tengo idea porque tira error cuando esta, pero sirve cuando no esta
     //********************************
     
+
+   //PARA PROBAR LA FUNCION intercambiarTarjeta
+   //********************
+   int tamaño_array;
+    Persona* personas = arregloPersonas(tamaño_array);
+    for (int i = 0; i<tamaño_array; i++){
+        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
+        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
+            if(j==0){
+                cout << "[";
+            }
+            cout << personas[i].tarjeta[j] << ",";
+            if(j==((int)personas[i].nombre.length())-1){
+                cout << "]";
+            }
+        }
+        cout << " " << personas[i].quiere_intercambiar << endl;
+    }
+    cout << "\n";
+    Persona* p1;
+    Persona* p2;
+    p1 = &personas[0];
+    p2 = &personas[2];
+    intercambiarTarjeta(p1,p2);
+    for (int i = 0; i<tamaño_array; i++){
+        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
+        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
+            if(j==0){
+                cout << "[";
+            }
+            cout << personas[i].tarjeta[j] << ",";
+            if(j==((int)personas[i].nombre.length())-1){
+                cout << "]";
+            }
+        }
+        cout << " " << personas[i].quiere_intercambiar << endl;
+        delete personas[i].tarjeta;
+    }
+    //*************************
     return 0;
 }
-//NECESITO HACER LOS DELETE DE COMPRARTARJETA
+//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
 //EJECUTAR EL PROGRAMA CON ./output2 < input.txt
