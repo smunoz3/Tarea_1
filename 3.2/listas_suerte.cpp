@@ -39,6 +39,10 @@ Persona* arregloPersonas(int& tamaño_array){
     return personas; 
 }
 
+void variosDias(Persona* personas, int cant_dias){
+
+}
+
 void intercambiarTarjeta(Persona* p1, Persona* p2){
     //Tengo un problema el cual hace que el arreglo de enteros "tarjeta", sea el largo del nombre de la persona,
     //Pero esta se mantiene al intercambiar tarjetas, entonces si tienen diferentes tamaños
