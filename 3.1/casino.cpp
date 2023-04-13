@@ -33,7 +33,7 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     if (!file.is_open()){
         cout<<"Error \n";exit(1);
         }
-
+        
     string comidas_array [4];
     comidas_array[0]="DESAYUNO";comidas_array[1]="ALMUERZO";comidas_array[2]="ONCE";comidas_array[3]="CENA";
     
@@ -43,14 +43,11 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     SaldoColaborado saldo_lectura [saldo_size];
     for (int i=0;i<saldo_size;i++){
         file_binario.read((char*)&saldo_lectura[i],sizeof(SaldoColaborado));
-        if (strcmp(rut , saldo_lectura[i].rut)== 0){
+        if (strcmp(rut, saldo_lectura[i].rut)== 0){
             if (servicio == SERV_DESAYUNO ){
                 if (saldo_lectura[i].saldo_desayuno>0){
                     retorno = true;
                     file <<rut << " " + comidas_array[servicio] + "\n";
-                }
-                else{
-                    cout<<"no desayuno"<<endl;
                 }
             }
             else if (servicio == SERV_ALMUERZO ){
@@ -58,17 +55,11 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
                     retorno = true;
                     file <<rut << " " + comidas_array[servicio] + "\n";
                 }
-                else{
-                    cout<<"no almuerzo"<<endl;
-                }
             }
             else if (servicio == SERV_ONCE ){
                 if (saldo_lectura[i].saldo_once>0){
                     retorno = true;
                     file <<rut << " " + comidas_array[servicio] + "\n";
-                }
-                else{
-                    cout<<"no once"<<endl;
                 }
             }
             else if (servicio == SERV_CENA ){
@@ -76,16 +67,26 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
                     retorno = true;
                     file <<rut << " " + comidas_array[servicio] + "\n";
                 }
-                else{
-                    cout<<"no cena"<<endl;
-                }
-            }
-            
+            } 
+            /* switch (servicio){
+                case 0: if (saldo_lectura[i].saldo_desayuno>0){
+                    retorno = true;
+                    file <<rut << " " + comidas_array[servicio] + "\n";
+                };
+                case 1: if (saldo_lectura[i].saldo_almuerzo>0){
+                    retorno = true;
+                    file <<rut << " " + comidas_array[servicio] + "\n";
+                };
+                case 2: if (saldo_lectura[i].saldo_once>0){
+                    retorno = true;
+                    file <<rut << " " + comidas_array[servicio] + "\n";
+                };
+                case 3: if (saldo_lectura[i].saldo_cena>0){
+                    retorno = true;
+                    file <<rut << " " + comidas_array[servicio] + "\n";
+                };
+            } */
         }
-        else{
-            cout<<"no rut"<<endl;
-        }
-
     }
     cout<<retorno<<endl;
     file.close();
