@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <string.h>
 
 using namespace std;
 
@@ -43,7 +42,8 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     SaldoColaborado saldo_lectura [saldo_size];
     for (int i=0;i<saldo_size;i++){
         file_binario.read((char*)&saldo_lectura[i],sizeof(SaldoColaborado));
-        if (strcmp(rut, saldo_lectura[i].rut)== 0){
+        //if (strcmp(rut, saldo_lectura[i].rut)== 0){
+        if (rut_string == saldo_lectura[i].rut){
             if (servicio == SERV_DESAYUNO ){
                 if (saldo_lectura[i].saldo_desayuno>0){
                     retorno = true;
@@ -99,5 +99,5 @@ int main(){
         bool test2 = puedeConsumir("11111111-1",2,"Consumos");
         bool test3= puedeConsumir("11111111-1",7,"Consumos");
         bool test4 = puedeConsumir("22222222-2",2,"Consumos");
-    return 0;
+        bool test5 = puedeConsumir("33333333-3",1,"Consumos");
 }
