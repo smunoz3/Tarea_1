@@ -25,11 +25,11 @@ int* comprarTarjeta (string nombre, int dia, int& m){
 
 //Hacer un array de structs de las personas
 
-Persona* arregloPersonas(int& tamaño_array){
+Persona* arregloPersonas(int& tamanio_array){
     int m;
-    cin >> tamaño_array;
-    Persona* personas = new Persona[tamaño_array];
-    for (int i=0; i<tamaño_array; i++){
+    cin >> tamanio_array;
+    Persona* personas = new Persona[tamanio_array];
+    for (int i=0; i<tamanio_array; i++){
         cin >> personas[i].nombre;
         cin >> personas[i].fecha;
         personas[i].tamanio_tarjeta = personas[i].nombre.length();
@@ -69,9 +69,9 @@ int main(){
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
    //***********************
    /*
-    int tamaño_array;
-    Persona* personas = arregloPersonas(tamaño_array);
-    for (int i = 0; i<tamaño_array; i++){
+    int tamanio_array;
+    Persona* personas = arregloPersonas(tamanio_array);
+    for (int i = 0; i<tamanio_array; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -93,9 +93,9 @@ int main(){
 
    //PARA PROBAR LA FUNCION intercambiarTarjeta
    //********************
-   int tamaño_array;
-    Persona* personas = arregloPersonas(tamaño_array);
-    for (int i = 0; i<tamaño_array; i++){
+   int tamanio_array;
+    Persona* personas = arregloPersonas(tamanio_array);
+    for (int i = 0; i<tamanio_array; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -114,7 +114,7 @@ int main(){
     p1 = &personas[0];
     p2 = &personas[2];
     intercambiarTarjeta(p1,p2);
-    for (int i = 0; i<tamaño_array; i++){
+    for (int i = 0; i<tamanio_array; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -133,3 +133,4 @@ int main(){
 }
 //QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
 //EJECUTAR EL PROGRAMA CON ./output2 < input.txt
+//ELIMINAR LAS ENIE
