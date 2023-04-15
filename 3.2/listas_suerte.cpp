@@ -34,7 +34,7 @@ Persona* arregloPersonas(int& tamanio_array){
         cin >> personas[i].nombre;
         cin >> personas[i].fecha;
         personas[i].tamanio_tarjeta = personas[i].nombre.length();
-        personas[i].tarjeta = comprarTarjeta(personas[i].nombre,2,m); //ACA FALTA CAMBIAR EL DIA IMPORTANTE
+        personas[i].tarjeta = comprarTarjeta(personas[i].nombre,2,m); //ACA SE PUEDE CAMBIAR EL DIA IMPORTANTE
         cin >> personas[i].quiere_intercambiar;
     }
     return personas; 
@@ -71,44 +71,8 @@ void intercambiarTarjeta(Persona* p1, Persona* p2){
 int puntaje(Persona* p1){
     int puntaje;
     puntaje = 0;
-    int fecha_temp[7];
-    int contador;
-    contador=0;
-    for (int i=0; i<8; i++){
-        if ((int)p1->fecha[i]==0){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==1){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==2){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==3){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==4){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==5){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==6){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==7){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==8){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        } else if((int)p1->fecha[i]==9){
-            fecha_temp[contador]=(int)p1->fecha[i];
-            contador ++;
-        }
-    }
-    for (int i=0; i<(p1->tamanio_tarjeta-1); i++){
-        puntaje += (p1->tarjeta[i])*(fecha_temp[i%10]);//Hay problemas, ya que la fecha se lee como string y se calcula de acuerdo a ASCII
+    for (int i=0; i<p1->tamanio_tarjeta; i++){
+        puntaje += (p1->tarjeta[i])*(p1->fecha[i%10]);
     }
     return puntaje;
 }
@@ -210,7 +174,6 @@ int main(){
             }
         }
         cout << " " << personas[i].quiere_intercambiar << endl;
-        delete personas[i].tarjeta;
     }
 
     Persona* p1;
@@ -218,6 +181,9 @@ int main(){
     int puntos;
     puntos = puntaje(p1);
     cout << "\n" << puntos;
+    for (int i=0; i<tamanio_array; i++){
+        delete personas[i].tarjeta;
+    }
     return 0;
 }
 //QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
