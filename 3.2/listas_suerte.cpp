@@ -121,7 +121,7 @@ void variosDias (Persona* personas, int cant_dias){ //TOO EZ
     }
     
 }
-
+//PICO
 int main(){
     cin >> p;
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
