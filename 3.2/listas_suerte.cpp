@@ -13,6 +13,19 @@ struct Persona {
 
 int p;
 
+/*****
+* int* comprar Tarjeta
+******
+* La función comprarTarjeta genera una tarjeta de la suerte en la cual influye el nombre y el dia.
+******
+* Input:
+*   string nombre: nombre es un string el cual contiene el nombre de la persona que quiere comprar la tarjeta de la suerte.
+*   int dia: dia es un entero el cual contiene el dia en el que se compra la tarjeta de la suerte. 
+*   int& m: m es una referencia a un entero, es el tamaño del arreglo que se va a retornar.
+******
+* Returns:
+*   Se retorna un arreglo de enteros el cual tiene el mismo largo que el nombre ingresado, en este arreglo, en la posicion i estará el valor que corresponde a la operación nombre[i]%dia. 
+*****/
 int* comprarTarjeta (string nombre, int dia, int& m){
 
     int* tarjeta= new int[m];
@@ -41,7 +54,18 @@ Persona* arregloPersonas(int& p){
     return personas; 
 }
 
-
+/*****
+* void intercambiarTarjeta
+******
+* La función intercambiarTarjeta
+******
+* Input:
+*   Persona* p1: Variable p1 del tipo puntero a el struct Persona, esto me da una persona.
+*   Persona* p2: Variable p2 del tipo puntero a el struct Persona, esto me da otra persona.
+******
+* Returns:
+*   No se retorna nada ya que la función es de tipo void.
+*****/
 void intercambiarTarjeta(Persona* p1, Persona* p2){
     //Tengo un problema el cual hace que el arreglo de enteros "tarjeta", sea el largo del nombre de la persona,
     //Pero esta se mantiene al intercambiar tarjetas, entonces si tienen diferentes tamaños
@@ -69,6 +93,17 @@ void intercambiarTarjeta(Persona* p1, Persona* p2){
     }
 } //NO PUEDO HACER ESTA FUNCION CULIA POR EL PICO ME RINDO
 
+/*****
+* int puntaje
+******
+* La función puntaje recibe una persona y le da el puntaje a esa persona mediante la fórmula proporcionada en la guía.
+******
+* Input:
+*   Persona* p1: Variable p1 del tipo puntero a el struct Persona.
+******
+* Returns:
+*   Se retorna un valor entero que representa el puntaje de la persona.
+*****/
 int puntaje(Persona* p1){
     int puntaje;
     puntaje = 0;
@@ -79,6 +114,17 @@ int puntaje(Persona* p1){
 }
 //NO ME SIRVE ESTA WEA ME QUIERO MATAR
 
+/*****
+* Persona* unDia
+******
+* La función unDIa 
+* Input:
+*   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
+*   int dia: El dia en el que se compra la tarjeta para cada personas.
+******
+* Returns:
+*   Se retorna la persona que obtuvo más puntaje en las tarjetas.
+*****/
 Persona* unDia(Persona* personas, int dia){
     int n_intercambios = 0;
     for(int i=0; i<p; i++){
