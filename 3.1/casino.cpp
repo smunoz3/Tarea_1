@@ -35,16 +35,17 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     retorno = false;
     string rut_string = rut;
 
-    fstream file_binario;        //abrir archivo binario
+    fstream file_binario;
     file_binario.open("saldos.bin",ios::binary| ios::in);
     if (!file_binario.is_open()){
         cout<<"Error \n";exit(1);
-        }
-    ofstream file;          //abrir archivo txt
+    }
+    
+    ofstream file; 
     file.open(consumos_dia+".txt",ios::app);
     if (!file.is_open()){
         cout<<"Error \n";exit(1);
-        }
+    }
         
     string comidas_array [4];
     comidas_array[0]="DESAYUNO";comidas_array[1]="ALMUERZO";comidas_array[2]="ONCE";comidas_array[3]="CENA";
@@ -55,7 +56,6 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     SaldoColaborado saldo_lectura [saldo_size];
     for (int i=0;i<saldo_size;i++){
         file_binario.read((char*)&saldo_lectura[i],sizeof(SaldoColaborado));
-        //if (strcmp(rut, saldo_lectura[i].rut)== 0){
         if (rut_string == saldo_lectura[i].rut){
             if (servicio == SERV_DESAYUNO ){
                 if (saldo_lectura[i].saldo_desayuno>0){
@@ -81,24 +81,6 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
                     file <<rut << " " + comidas_array[servicio] + "\n";
                 }
             } 
-            /* switch (servicio){
-                case 0: if (saldo_lectura[i].saldo_desayuno>0){
-                    retorno = true;
-                    file <<rut << " " + comidas_array[servicio] + "\n";
-                };
-                case 1: if (saldo_lectura[i].saldo_almuerzo>0){
-                    retorno = true;
-                    file <<rut << " " + comidas_array[servicio] + "\n";
-                };
-                case 2: if (saldo_lectura[i].saldo_once>0){
-                    retorno = true;
-                    file <<rut << " " + comidas_array[servicio] + "\n";
-                };
-                case 3: if (saldo_lectura[i].saldo_cena>0){
-                    retorno = true;
-                    file <<rut << " " + comidas_array[servicio] + "\n";
-                };
-            } */
         }
     }
     cout<<retorno<<endl;
@@ -106,11 +88,3 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     file_binario.close();
     return retorno;
 };
-
-int main(){
-        bool test = puedeConsumir("11111111-1",0,"Consumos");
-        bool test2 = puedeConsumir("11111111-1",2,"Consumos");
-        bool test3= puedeConsumir("11111111-1",7,"Consumos");
-        bool test4 = puedeConsumir("22222222-2",2,"Consumos");
-        bool test5 = puedeConsumir("33333333-3",1,"Consumos");
-}

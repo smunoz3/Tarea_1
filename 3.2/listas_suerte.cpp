@@ -3,6 +3,8 @@
 
 using namespace std;
 
+int p;
+
 struct Persona {
     string nombre;
     char fecha[11];
@@ -10,8 +12,6 @@ struct Persona {
     int* tarjeta;
     bool quiere_intercambiar;
 };
-
-int p;
 
 /*****
 * int* comprar Tarjeta
@@ -27,9 +27,7 @@ int p;
 *   Se retorna un arreglo de enteros el cual tiene el mismo largo que el nombre ingresado, en este arreglo, en la posicion i estará el valor que corresponde a la operación nombre[i]%dia. 
 *****/
 int* comprarTarjeta (string nombre, int dia, int& m){
-
     int* tarjeta= new int[m];
-
     for (int i=0; i<m; i++){
         tarjeta[i]= nombre[i]%dia;
     }
@@ -156,18 +154,29 @@ Persona* unDia(Persona* personas, int dia){
         }
     }
     delete [] personaintercambio;
-    
+    return personas;
 }
+/*****
+* void variosDias
+******
+* La función variosDias 
+* Input:
+*   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
+*   int cant_dias: Variable cant_dias del tipo entero que tiene la cantidad de dias yotales a realizar.
+******
+* Returns:
+*   No se retorna nada ya que la función es de tipo void.
+*****/
 
 void variosDias (Persona* personas, int cant_dias){ //TOO EZ
     Persona* ganador;
     for (int i=1; i<=cant_dias; i++){
         ganador = unDia(personas,i);
         cout << ganador->nombre << " " << ganador->fecha << " " << puntaje(ganador) << endl;
-    }
-    
+    } 
 }
-//PICO
+
+
 int main(){
     cin >> p;
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
@@ -178,8 +187,10 @@ int main(){
     for ( int i=0 ; i < m ; i++){
         cout << tarjeta[i] << endl;
     }
+
     delete tarjeta;
-    */
+   */
+  
     //**********************
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
@@ -251,8 +262,9 @@ int main(){
 
     //PARA PROBAR LA FUNCION puntaje
     //***************************
-    /*
+    
     int p;
+    p = 4;
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -276,11 +288,12 @@ int main(){
     for (int i=0; i<p; i++){
         delete personas[i].tarjeta;
     }
-    */
+   
    //******************************************
 
 
    //PARA PROBAR LA FUNCION unDia
+   /*
    int p;
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
@@ -312,9 +325,11 @@ int main(){
         }
         cout << " " << personas[i].quiere_intercambiar << endl;
     }
+
     for (int i=0; i<p; i++){
         delete personas[i].tarjeta;
     }
+    */
     return 0;
 }
 //QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
