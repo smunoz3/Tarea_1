@@ -74,6 +74,46 @@ int puntaje(Persona* p1){
     }
     return puntaje;
 }
+Persona* unDia(Persona* personas, int dia){
+    int n_intercambios = 0;
+    for(int i=0; i<p; i++){
+        int largo_nombre;
+        largo_nombre = personas[i].nombre.length();
+        personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
+        if (personas[i].quiere_intercambiar==1){
+            n_intercambios++;
+        }
+    }//HASTA ACA FUNCIONA
+    int contador=0;
+    Persona* personaintercambio = new Persona [contador];
+    for (int i=0; i<p; i++){
+        if (personas[i].quiere_intercambiar==1){
+            personaintercambio[contador]=personas[i];//Arreglo de personas que quieren intercambiar
+            contador++;
+        }
+    }
+    
+    for(int i=1; i<=n_intercambios; i+=2){
+        int largo_tarjeta_menor = (personaintercambio[i-1].tamanio_tarjeta<=personaintercambio[i].tamanio_tarjeta) ? personaintercambio[i-1].tamanio_tarjeta : personaintercambio[i].tamanio_tarjeta;
+        for(int j=0; j<largo_tarjeta_menor; j++){
+            if (personaintercambio[i-1].tarjeta[j] == personaintercambio[i].tarjeta[j]){
+                Persona* p1 = &personaintercambio[i-1];
+                Persona* p2 = &personaintercambio[i];
+                intercambiarTarjeta(p1,p2);// ACA SE CAMBIAN LAS TARJETAS EN EL NUEVO ARREGLO, REVISAR SI CAMBIA AL STRUCT ORIGINAL
+                break;
+            }
+        }
+    }
+    delete [] personaintercambio;
+    return personas;
+}
+void variosDias (Persona* personas, int cant_dias){ //TOO EZ
+    Persona* ganador;
+    for (int i=1; i<=cant_dias; i++){
+        ganador = unDia(personas,i);
+        cout << ganador->nombre << " " << ganador->fecha << " " << puntaje(ganador) << endl;
+    } 
+}
 //NO ME SIRVE ESTA WEA ME QUIERO MATAR
 
 
