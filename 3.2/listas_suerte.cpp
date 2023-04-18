@@ -25,7 +25,7 @@ int* comprarTarjeta (string nombre, int dia, int& m){
 //Hacer un array de structs de las personas
 //ESTA FUNCION LA VAN A CREAR LOS AYUDANTES
 
-Persona* arregloPersonas(int& tamanio_array){
+Persona* arregloPersonas(int& p){
     int m;
     Persona* personas = new Persona[p];
     for (int i=0; i<p; i++){
@@ -36,6 +36,7 @@ Persona* arregloPersonas(int& tamanio_array){
         //Descomentar para probar funcion puntaje
         cin >> personas[i].quiere_intercambiar;
     }
+
     return personas; 
 }
 
@@ -74,7 +75,11 @@ int puntaje(Persona* p1){
     return puntaje;
 }
 //NO ME SIRVE ESTA WEA ME QUIERO MATAR
+
+
+
 int main(){
+    cin >> p;
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
     //*****************
     /*
@@ -89,10 +94,9 @@ int main(){
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
    //***********************
-   /*
-    int tamanio_array;
-    Persona* personas = arregloPersonas(tamanio_array);
-    for (int i = 0; i<tamanio_array; i++){
+   
+    Persona* personas = arregloPersonas(p);
+    for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -104,9 +108,10 @@ int main(){
             }
         }
         cout << " " << personas[i].quiere_intercambiar << endl;
-        delete personas[i].tarjeta;
+        delete [] personas[i].tarjeta;
     }
-    */
+    delete [] personas;
+    
     //delete personas; //ACA ME TIRA EL ERROR Violación de segmento (`core' generado)
     //No tengo idea porque tira error cuando esta, pero sirve cuando no esta
     //********************************
@@ -114,9 +119,9 @@ int main(){
    //PARA PROBAR LA FUNCION intercambiarTarjeta
    //********************
    /*
-   int tamanio_array;
-    Persona* personas = arregloPersonas(tamanio_array);
-    for (int i = 0; i<tamanio_array; i++){
+   int p;
+    Persona* personas = arregloPersonas(p);
+    for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -135,7 +140,7 @@ int main(){
     p1 = &personas[0];
     p2 = &personas[2];
     intercambiarTarjeta(p1,p2);
-    for (int i = 0; i<tamanio_array; i++){
+    for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < (int)personas[i].nombre.length(); j++){
             if(j==0){
@@ -152,7 +157,8 @@ int main(){
     */
     //*************************
     //PARA PROBAR LA FUNCION puntaje
-    cin >> p;
+    //************************
+    /*
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -177,6 +183,9 @@ int main(){
         delete personas[i].tarjeta;
     }
     delete [] personas;
+    */
+    //***************************
+    
     return 0;
 }
 //QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
