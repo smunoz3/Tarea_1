@@ -13,8 +13,21 @@ struct Persona {
     bool quiere_intercambiar;
 };
 
+/*****
+* int* comprar Tarjeta
+******
+* La función comprarTarjeta genera una tarjeta de la suerte en la cual influye el nombre y el dia.
+******
+* Input:
+*   string nombre: nombre es un string el cual contiene el nombre de la persona que quiere comprar la tarjeta de la suerte.
+*   int dia: dia es un entero el cual contiene el dia en el que se compra la tarjeta de la suerte. 
+*   int& m: m es una referencia a un entero, es el tamaño del arreglo que se va a retornar.
+******
+* Returns:
+*   Se retorna un arreglo de enteros el cual tiene el mismo largo que el nombre ingresado, en este arreglo, en la posicion i estará el valor que corresponde a la operación nombre[i]%dia. 
+*****/
+
 int* comprarTarjeta (string nombre, int dia, int& m){
-    m = nombre.length();
     int* tarjeta= new int[m];
     for (int i=0; i<m; i++){
         tarjeta[i]= nombre[i]%dia;
@@ -39,6 +52,20 @@ Persona* arregloPersonas(int& p){
 
     return personas; 
 }
+
+
+/*****
+* void intercambiarTarjeta
+******
+* La función intercambiarTarjeta
+******
+* Input:
+*   Persona* p1: Variable p1 del tipo puntero a el struct Persona, esto me da una persona.
+*   Persona* p2: Variable p2 del tipo puntero a el struct Persona, esto me da otra persona.
+******
+* Returns:
+*   No se retorna nada ya que la función es de tipo void.
+*****/
 
 void intercambiarTarjeta(Persona* p1, Persona* p2){
     //Tengo un problema el cual hace que el arreglo de enteros "tarjeta", sea el largo del nombre de la persona,
@@ -66,6 +93,19 @@ void intercambiarTarjeta(Persona* p1, Persona* p2){
         p2->tarjeta[i] = valor_temp;
     }
 } //NO PUEDO HACER ESTA FUNCION CULIA POR EL PICO ME RINDO
+
+/*****
+* int puntaje
+******
+* La función puntaje recibe una persona y le da el puntaje a esa persona mediante la fórmula proporcionada en la guía.
+******
+* Input:
+*   Persona* p1: Variable p1 del tipo puntero a el struct Persona.
+******
+* Returns:
+*   Se retorna un valor entero que representa el puntaje de la persona.
+*****/
+
 int puntaje(Persona* p1){
     int puntaje;
     puntaje = 0;
@@ -74,39 +114,44 @@ int puntaje(Persona* p1){
     }
     return puntaje;
 }
+
+/*****
+* Persona* unDia
+******
+* La función unDIa 
+* Input:
+*   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
+*   int dia: El dia en el que se compra la tarjeta para cada personas.
+******
+* Returns:
+*   Se retorna la persona que obtuvo más puntaje en las tarjetas.
+*****/
+
 Persona* unDia(Persona* personas, int dia){
     int n_intercambios = 0;
     for(int i=0; i<p; i++){
         int largo_nombre;
         largo_nombre = personas[i].nombre.length();
         personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
-        if (personas[i].quiere_intercambiar==1){
-            n_intercambios++;
-        }
     }//HASTA ACA FUNCIONA
-    int contador=0;
-    Persona* personaintercambio = new Persona [contador];
-    for (int i=0; i<p; i++){
-        if (personas[i].quiere_intercambiar==1){
-            personaintercambio[contador]=personas[i];//Arreglo de personas que quieren intercambiar
-            contador++;
-        }
-    }
     
-    for(int i=1; i<=n_intercambios; i+=2){
-        int largo_tarjeta_menor = (personaintercambio[i-1].tamanio_tarjeta<=personaintercambio[i].tamanio_tarjeta) ? personaintercambio[i-1].tamanio_tarjeta : personaintercambio[i].tamanio_tarjeta;
-        for(int j=0; j<largo_tarjeta_menor; j++){
-            if (personaintercambio[i-1].tarjeta[j] == personaintercambio[i].tarjeta[j]){
-                Persona* p1 = &personaintercambio[i-1];
-                Persona* p2 = &personaintercambio[i];
-                intercambiarTarjeta(p1,p2);// ACA SE CAMBIAN LAS TARJETAS EN EL NUEVO ARREGLO, REVISAR SI CAMBIA AL STRUCT ORIGINAL
-                break;
-            }
-        }
-    }
-    delete [] personaintercambio;
+
+
     return personas;
 }
+
+/*****
+* void variosDias
+******
+* La función variosDias 
+* Input:
+*   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
+*   int cant_dias: Variable cant_dias del tipo entero que tiene la cantidad de dias yotales a realizar.
+******
+* Returns:
+*   No se retorna nada ya que la función es de tipo void.
+*****/
+
 void variosDias (Persona* personas, int cant_dias){ //TOO EZ
     Persona* ganador;
     for (int i=1; i<=cant_dias; i++){
@@ -134,7 +179,7 @@ int main(){
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
    //***********************
-   
+   /*
     Persona* personas = arregloPersonas(p);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -151,7 +196,7 @@ int main(){
         delete [] personas[i].tarjeta;
     }
     delete [] personas;
-    
+    */
     //delete personas; //ACA ME TIRA EL ERROR Violación de segmento (`core' generado)
     //No tengo idea porque tira error cuando esta, pero sirve cuando no esta
     //********************************
@@ -198,7 +243,7 @@ int main(){
     //*************************
     //PARA PROBAR LA FUNCION puntaje
     //************************
-    /*
+    
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -218,12 +263,12 @@ int main(){
     p1 = &personas[1];
     int puntos;
     puntos = puntaje(p1);
-    cout << "\n" << puntos;
+    cout << "\n" << puntos << endl;
     for (int i=0; i<p; i++){
         delete personas[i].tarjeta;
     }
     delete [] personas;
-    */
+    
     //***************************
     
     return 0;
