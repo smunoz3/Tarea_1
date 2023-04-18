@@ -32,7 +32,7 @@ Persona* arregloPersonas(int& tamanio_array){
         cin >> personas[i].nombre;
         cin >> personas[i].fecha;
         personas[i].tamanio_tarjeta = personas[i].nombre.length();
-        //personas[i].tarjeta = comprarTarjeta(personas[i].nombre,2,m); //ACA SE PUEDE CAMBIAR EL DIA IMPORTANTE
+        personas[i].tarjeta = comprarTarjeta(personas[i].nombre,2,m); //ACA SE PUEDE CAMBIAR EL DIA IMPORTANTE
         //Descomentar para probar funcion puntaje
         cin >> personas[i].quiere_intercambiar;
     }
@@ -179,21 +179,6 @@ int main(){
     delete [] personas;
     return 0;
 }
-//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
-//EJECUTAR EL PROGRAMA CON ./output2 < input.txt
-//ELIMINAR LAS ENIE
-
-
-
-
-
-
-
-
-
-
-
-
 //QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
 //EJECUTAR EL PROGRAMA CON ./output2 < input.txt
 //ELIMINAR LAS ENIE
