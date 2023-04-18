@@ -28,6 +28,7 @@ struct Persona {
 *****/
 
 int* comprarTarjeta (string nombre, int dia, int& m){
+    m = nombre.length();  //probar funcion comprar y funcion putaje
     int* tarjeta= new int[m];
     for (int i=0; i<m; i++){
         tarjeta[i]= nombre[i]%dia;
@@ -42,6 +43,7 @@ Persona* arregloPersonas(int& p){
     int m;
     Persona* personas = new Persona[p];
     for (int i=0; i<p; i++){
+        //m = personas[i].nombre.length(); //
         cin >> personas[i].nombre;
         cin >> personas[i].fecha;
         personas[i].tamanio_tarjeta = personas[i].nombre.length();
@@ -164,20 +166,19 @@ int main(){
     cin >> p;
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
     //*****************
-    
+    /*
     int m;
-    m=6;
     int* tarjeta = comprarTarjeta("Pepito",2,m);
     for ( int i=0 ; i < m ; i++){
         cout << tarjeta[i] << endl;
     }
     delete tarjeta;
-    
+    */
     //**********************
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
    //***********************
-   /*
+ /*
     Persona* personas = arregloPersonas(p);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -194,7 +195,7 @@ int main(){
         delete [] personas[i].tarjeta;
     }
     delete [] personas;
-    */
+ */
     //delete personas; //ACA ME TIRA EL ERROR Violación de segmento (`core' generado)
     //No tengo idea porque tira error cuando esta, pero sirve cuando no esta
     //********************************
@@ -241,7 +242,7 @@ int main(){
     //*************************
     //PARA PROBAR LA FUNCION puntaje
     //************************
-    /*
+    
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -266,7 +267,7 @@ int main(){
         delete personas[i].tarjeta;
     }
     delete [] personas;
-    */
+    
     //***************************
     
     return 0;
