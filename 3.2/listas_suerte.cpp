@@ -127,16 +127,13 @@ int puntaje(Persona* p1){
 *   Se retorna la persona que obtuvo más puntaje en las tarjetas.
 *****/
 
-Persona* unDia(Persona* personas, int dia){
-    int n_intercambios = 0;
+Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
     for(int i=0; i<p; i++){
         int largo_nombre;
         largo_nombre = personas[i].nombre.length();
         personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
     }//HASTA ACA FUNCIONA
     
-
-
     return personas;
 }
 
@@ -167,14 +164,15 @@ int main(){
     cin >> p;
     //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
     //*****************
-    /*
+    
     int m;
-    int* tarjeta = comprarTarjeta("Maria",2,m);
+    m=6;
+    int* tarjeta = comprarTarjeta("Pepito",2,m);
     for ( int i=0 ; i < m ; i++){
         cout << tarjeta[i] << endl;
     }
     delete tarjeta;
-    */
+    
     //**********************
     
    //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
@@ -243,7 +241,7 @@ int main(){
     //*************************
     //PARA PROBAR LA FUNCION puntaje
     //************************
-    
+    /*
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -268,7 +266,7 @@ int main(){
         delete personas[i].tarjeta;
     }
     delete [] personas;
-    
+    */
     //***************************
     
     return 0;
