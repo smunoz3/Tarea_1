@@ -125,21 +125,72 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
         personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
     }//HASTA ACA FUNCIONA
     Persona* personas_intercambio = new Persona[p];
+    Persona* personas_no_intercambio = new Persona[p];
     int c =0;
+    int no_cambio = 0;
     for (int i= 0; i<p; i++){
         if (personas[i].quiere_intercambiar == 1){
             personas_intercambio[c].tarjeta = personas[i].tarjeta;
             personas_intercambio[c].quiere_intercambiar = personas[i].quiere_intercambiar;
+            personas_intercambio[c].tamanio_tarjeta = personas[i].tamanio_tarjeta;
+            personas_intercambio[c].nombre = personas[i].nombre;
+            for (int j=0;j<11;j++){
+            personas_intercambio[c].fecha[j] = *personas[j].fecha;
+            }
             c++;
+        } else{
+            personas_no_intercambio[no_cambio].tarjeta = personas[i].tarjeta;
+            personas_no_intercambio[no_cambio].quiere_intercambiar = personas[i].quiere_intercambiar;
+            personas_no_intercambio[no_cambio].tamanio_tarjeta = personas[i].tamanio_tarjeta;
+             personas_no_intercambio[no_cambio].nombre = personas[i].nombre;
+             //personas_no_intercambio[no_cambio].fecha = personas[i].fecha;
+            no_cambio++;
         }
     }
-    
+    //intercambiar tarjetas
 
-
-    for (int i=0;i<10;i++){
-            cout<<personas_intercambio[i].tarjeta<<" "<<personas_intercambio[i].quiere_intercambiar<<endl;
+    for (int i=1;i<=c;i++){
+ 
+        int min = (personas_intercambio[i-1].tamanio_tarjeta <personas_intercambio[i].tamanio_tarjeta) ? personas_intercambio[i-1].tamanio_tarjeta : personas_intercambio[i].tamanio_tarjeta;
+        for (int j=0;j<min;j++){
+            if (personas_intercambio[i-1].tarjeta[j]==personas_intercambio[i].tarjeta[j]){
+                intercambiarTarjeta(&personas_intercambio[i-1] , &personas_intercambio[i] );
+                personas_intercambio[i-1].quiere_intercambiar = false;
+            }
+        }
     }
-    return personas;
+    int neicho =0;
+    int miguel = 0;
+    Persona* personas_total = new Persona[p];
+    for (int i =0;i<p;i++){
+        if (i<c){    
+            personas_total[i] = personas_intercambio[neicho];
+            neicho ++;
+        }
+        else{
+            personas_total[i] = personas_no_intercambio[miguel];
+            miguel++;   
+        }
+    }
+
+    //delete[] personas_intercambio;
+    //delete[] personas_no_intercambio;
+    //calculo ganador
+    Persona* ganador;
+    int puntos_max =0;
+    for (int i=0;i<p;i++){
+        int a = puntaje(&personas_total[i]);
+        cout<<a<<endl;
+        cout<<"puntaje maz"<<puntos_max<<endl;
+        if(a>puntos_max){
+            puntos_max = a;
+            ganador = &personas_total[i];
+            cout<<"ho"<<endl;
+        }
+
+    } 
+    //delete[] personas_total;
+    return ganador;
 }
 
 /*****
@@ -203,7 +254,7 @@ int main(){
     
    //PARA PROBAR LA FUNCION intercambiarTarjeta
    //********************
-  
+  /*
     Persona* personas = arregloPersonas(p);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -238,7 +289,7 @@ int main(){
         cout << " " << personas[i].quiere_intercambiar << endl;
         delete personas[i].tarjeta;
     }
-  
+*/
     //*************************
     //PARA PROBAR LA FUNCION puntaje
     //************************
@@ -269,9 +320,60 @@ int main(){
     delete [] personas;
     */
     //***************************
-    
+    //*************************
+    //PARA PROBAR LA FUNCION unDia
+    //************************
+    Persona* personas = arregloPersonas(p);
+    for (int i = 0; i<p; i++){
+        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
+        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
+            if(j==0){
+                cout << "[";
+            }
+            cout << personas[i].tarjeta[j] << ",";
+            if(j==((int)personas[i].nombre.length())-1){
+                cout << "]";
+            }
+        }
+        cout << " " << personas[i].quiere_intercambiar << endl;
+        
+    }
+    Persona* personas_2 = unDia(personas,2);
+    cout<<"hola"<<endl;
+    //cout<<personas_2->nombre<<endl;
+    cout<<"hola 2"<<endl;
+    cout<<personas_2->quiere_intercambiar<<endl;
+    cout<<"hola 3"<<endl;
+    cout<<personas_2->tamanio_tarjeta<<endl;
+    cout<<"hola 4"<<endl;
+    for ( int j=0; j < personas_2->tamanio_tarjeta; j++){
+            if(j==0){
+                cout << "[";
+            }
+            cout << personas_2->tarjeta[j] << ",";
+            if(j==personas_2->tamanio_tarjeta-1){
+                cout << "]";
+            }
+        }
+    // cout<<"\n";
+    // for (int i = 0; i<1; i++){
+    //     cout << personas_2[i].nombre << " " <<  " " << personas_2[i].tamanio_tarjeta << " ";
+    //     for ( int j=0; j < personas_2[i].tamanio_tarjeta; j++){
+    //         if(j==0){
+    //             cout << "[";
+    //         }
+    //         cout << personas_2[i].tarjeta[j] << ",";
+    //         if(j==personas_2[i].tamanio_tarjeta-1){
+    //             cout << "]";
+    //         }
+    //     }
+    //     cout << " " << personas_2[i].quiere_intercambiar << endl;
+    //     delete personas_2[i].tarjeta;
+
+    // }
     return 0;
-}//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
+}
+//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
 //EJECUTAR EL PROGRAMA CON ./output2 < input.txt
 //ELIMINAR LAS ENIE
 // Valgrind:
