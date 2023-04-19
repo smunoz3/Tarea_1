@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 int p;
@@ -69,32 +70,20 @@ Persona* arregloPersonas(int& p){
 *   No se retorna nada ya que la función es de tipo void.
 *****/
 
-void intercambiarTarjeta(Persona* p1, Persona* p2){
-    //Tengo un problema el cual hace que el arreglo de enteros "tarjeta", sea el largo del nombre de la persona,
-    //Pero esta se mantiene al intercambiar tarjetas, entonces si tienen diferentes tamaños
-    //Una queda mas larga y otra mas corta
-    int tamanio_temp = p1->tamanio_tarjeta;
-    int* temp = new int[tamanio_temp];  //Cree un arreglo temporal
-    for (int i=0; i<tamanio_temp; i++){
-        temp[i] = p1->tarjeta[i];  //Aca se pasa el arreglo de p1 al temporal
-    }
-    delete [] p1->tarjeta;
-    p1->tarjeta = new int[p2->tamanio_tarjeta];  //Se guarda el arreglo de p2 en p1
-    for (int i=0; i<p2->tamanio_tarjeta; i++){
-        temp[i] = p2->tarjeta[i];  //Aca se pasa el arreglo de p2 a p1
-    }
-    delete [] p2->tarjeta;
-    p2->tarjeta = new int[tamanio_temp];  //Se guarda el arreglo de p2 en p1
-    for (int i=0; i<tamanio_temp; i++){
-        p2->tarjeta[i] = temp[i];  //Aca se pasa el arreglo de p2 a p1
-    }
-    delete [] temp;
-    for ( int i=0; i < p1->tamanio_tarjeta && i < p2->tamanio_tarjeta; i++){
-        int valor_temp = p1->tarjeta[i];
-        p1->tarjeta[i] = p2->tarjeta[i];
-        p2->tarjeta[i] = valor_temp;
-    }
-} //NO PUEDO HACER ESTA FUNCION CULIA POR EL PICO ME RINDO
+void intercambiarTarjeta(Persona* p1, Persona* p2) {     
+    int* temp = p1->tarjeta; 
+    int* temp_2 = p2->tarjeta;
+    //cout<<"P2 "<<p2->tamanio_tarjeta<<" P1 "<<p1->tamanio_tarjeta<<endl;
+    int temp_tam = p1->tamanio_tarjeta; 
+    p1->tamanio_tarjeta = p2->tamanio_tarjeta; 
+    p2->tamanio_tarjeta = temp_tam;
+    //cout<<"P2 "<<p2->tamanio_tarjeta<<" P1 "<<p1->tamanio_tarjeta<<endl;
+    p1->tarjeta = temp_2;
+    p2->tarjeta = temp;
+}
+//NO PUEDO HACER ESTA FUNCION CULIA POR EL PICO ME RINDO
+// PUTOS NIGGERS
+// ODIO ISRAEL
 
 /*****
 * int puntaje
@@ -135,7 +124,21 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
         largo_nombre = personas[i].nombre.length();
         personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
     }//HASTA ACA FUNCIONA
+    Persona* personas_intercambio = new Persona[p];
+    int c =0;
+    for (int i= 0; i<p; i++){
+        if (personas[i].quiere_intercambiar == 1){
+            personas_intercambio[c].tarjeta = personas[i].tarjeta;
+            personas_intercambio[c].quiere_intercambiar = personas[i].quiere_intercambiar;
+            c++;
+        }
+    }
     
+
+
+    for (int i=0;i<10;i++){
+            cout<<personas_intercambio[i].tarjeta<<" "<<personas_intercambio[i].quiere_intercambiar<<endl;
+    }
     return personas;
 }
 
@@ -159,8 +162,6 @@ void variosDias (Persona* personas, int cant_dias){ //TOO EZ
     } 
 }
 //NO ME SIRVE ESTA WEA ME QUIERO MATAR
-
-
 
 int main(){
     cin >> p;
@@ -202,8 +203,7 @@ int main(){
     
    //PARA PROBAR LA FUNCION intercambiarTarjeta
    //********************
-   /*
-   int p;
+  
     Persona* personas = arregloPersonas(p);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -226,23 +226,23 @@ int main(){
     intercambiarTarjeta(p1,p2);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
+        for ( int j=0; j < personas[i].tamanio_tarjeta; j++){
             if(j==0){
                 cout << "[";
             }
             cout << personas[i].tarjeta[j] << ",";
-            if(j==((int)personas[i].nombre.length())-1){
+            if(j==personas[i].tamanio_tarjeta-1){
                 cout << "]";
             }
         }
         cout << " " << personas[i].quiere_intercambiar << endl;
         delete personas[i].tarjeta;
     }
-    */
+  
     //*************************
     //PARA PROBAR LA FUNCION puntaje
     //************************
-    
+    /*
     Persona* personas = arregloPersonas(p); //Crear los structs
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
@@ -267,12 +267,11 @@ int main(){
         delete personas[i].tarjeta;
     }
     delete [] personas;
-    
+    */
     //***************************
     
     return 0;
-}
-//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
+}//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
 //EJECUTAR EL PROGRAMA CON ./output2 < input.txt
 //ELIMINAR LAS ENIE
 // Valgrind:
