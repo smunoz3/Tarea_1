@@ -180,12 +180,9 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
     int puntos_max =0;
     for (int i=0;i<p;i++){
         int a = puntaje(&personas_total[i]);
-        cout<<a<<endl;
-        cout<<"puntaje maz"<<puntos_max<<endl;
         if(a>puntos_max){
             puntos_max = a;
             ganador = &personas_total[i];
-            cout<<"ho"<<endl;
         }
 
     } 
@@ -213,68 +210,9 @@ void variosDias (Persona* personas, int cant_dias){ //TOO EZ
     } 
 }
 //NO ME SIRVE ESTA WEA ME QUIERO MATAR
-
 int main(){
     cin >> p;
-    //PARA PROBAR LA FUNCION comprarTarjeta y visualizar lo que contiene cada array de enteros
-    //*****************
-    /*
-    int m;
-    int* tarjeta = comprarTarjeta("Pepito",2,m);
-    for ( int i=0 ; i < m ; i++){
-        cout << tarjeta[i] << endl;
-    }
-    delete tarjeta;
-    */
-    //**********************
-    
-   //PARA PROBAR LA FUNCION arregloPersonas y visualizar lo que contiene cada struct
-   //***********************
- /*
     Persona* personas = arregloPersonas(p);
-    for (int i = 0; i<p; i++){
-        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas[i].tarjeta[j] << ",";
-            if(j==((int)personas[i].nombre.length())-1){
-                cout << "]";
-            }
-        }
-        cout << " " << personas[i].quiere_intercambiar << endl;
-        delete [] personas[i].tarjeta;
-    }
-    delete [] personas;
- */
-    //delete personas; //ACA ME TIRA EL ERROR Violación de segmento (`core' generado)
-    //No tengo idea porque tira error cuando esta, pero sirve cuando no esta
-    //********************************
-    
-   //PARA PROBAR LA FUNCION intercambiarTarjeta
-   //********************
-  /*
-    Persona* personas = arregloPersonas(p);
-    for (int i = 0; i<p; i++){
-        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas[i].tarjeta[j] << ",";
-            if(j==((int)personas[i].nombre.length())-1){
-                cout << "]";
-            }
-        }
-        cout << " " << personas[i].quiere_intercambiar << endl;
-    }
-    cout << "\n";
-    Persona* p1;
-    Persona* p2;
-    p1 = &personas[0];
-    p2 = &personas[2];
-    intercambiarTarjeta(p1,p2);
     for (int i = 0; i<p; i++){
         cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
         for ( int j=0; j < personas[i].tamanio_tarjeta; j++){
@@ -282,100 +220,19 @@ int main(){
                 cout << "[";
             }
             cout << personas[i].tarjeta[j] << ",";
-            if(j==personas[i].tamanio_tarjeta-1){
+            if(j==(personas[i].tamanio_tarjeta)-1){
                 cout << "]";
             }
         }
         cout << " " << personas[i].quiere_intercambiar << endl;
+       
+    }
+    cout<<"\n";
+    variosDias(personas,2);
+
+    delete[] personas;
+    for (int i=0;i <p;i++){
         delete personas[i].tarjeta;
     }
-*/
-    //*************************
-    //PARA PROBAR LA FUNCION puntaje
-    //************************
-    /*
-    Persona* personas = arregloPersonas(p); //Crear los structs
-    for (int i = 0; i<p; i++){
-        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas[i].tarjeta[j] << ",";
-            if(j==((int)personas[i].nombre.length())-1){
-                cout << "]";
-            }
-        }
-        cout << " " << personas[i].quiere_intercambiar << endl;
-    }
-
-    Persona* p1;
-    p1 = &personas[1];
-    int puntos;
-    puntos = puntaje(p1);
-    cout << "\n" << puntos << endl;
-    for (int i=0; i<p; i++){
-        delete personas[i].tarjeta;
-    }
-    delete [] personas;
-    */
-    //***************************
-    //*************************
-    //PARA PROBAR LA FUNCION unDia
-    //************************
-    Persona* personas = arregloPersonas(p);
-    for (int i = 0; i<p; i++){
-        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < (int)personas[i].nombre.length(); j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas[i].tarjeta[j] << ",";
-            if(j==((int)personas[i].nombre.length())-1){
-                cout << "]";
-            }
-        }
-        cout << " " << personas[i].quiere_intercambiar << endl;
-        
-    }
-    Persona* personas_2 = unDia(personas,2);
-    cout<<"hola"<<endl;
-    //cout<<personas_2->nombre<<endl;
-    cout<<"hola 2"<<endl;
-    cout<<personas_2->quiere_intercambiar<<endl;
-    cout<<"hola 3"<<endl;
-    cout<<personas_2->tamanio_tarjeta<<endl;
-    cout<<"hola 4"<<endl;
-    for ( int j=0; j < personas_2->tamanio_tarjeta; j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas_2->tarjeta[j] << ",";
-            if(j==personas_2->tamanio_tarjeta-1){
-                cout << "]";
-            }
-        }
-    // cout<<"\n";
-    // for (int i = 0; i<1; i++){
-    //     cout << personas_2[i].nombre << " " <<  " " << personas_2[i].tamanio_tarjeta << " ";
-    //     for ( int j=0; j < personas_2[i].tamanio_tarjeta; j++){
-    //         if(j==0){
-    //             cout << "[";
-    //         }
-    //         cout << personas_2[i].tarjeta[j] << ",";
-    //         if(j==personas_2[i].tamanio_tarjeta-1){
-    //             cout << "]";
-    //         }
-    //     }
-    //     cout << " " << personas_2[i].quiere_intercambiar << endl;
-    //     delete personas_2[i].tarjeta;
-
-    // }
     return 0;
 }
-//QUE NO SE TE OLVIDE HACER LOS DELETE EN MAIN
-//EJECUTAR EL PROGRAMA CON ./output2 < input.txt
-//ELIMINAR LAS ENIE
-// Valgrind:
-// g++ -g listas_suerte.cpp -o output2 -Wall
-//valgrind --leakcheck=yes ./output2 < input.txt
