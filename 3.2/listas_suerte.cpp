@@ -13,6 +13,7 @@ struct Persona {
     bool quiere_intercambiar;
 };
 
+
 /*****
 * int* comprar Tarjeta
 ******
@@ -36,6 +37,7 @@ int* comprarTarjeta (string nombre, int dia, int& m){
     }
     return tarjeta;
 }
+
 
 /*****
 * void intercambiarTarjeta
@@ -170,15 +172,7 @@ Persona* unDia(Persona* personas, int dia){
         }
 
     } 
-    for (int i=0;i <c;i++){
-        delete personas_intercambio[i].tarjeta;
-    }
-    for (int i=0;i <no_cambio;i++){
-        delete personas_no_intercambio[i].tarjeta;
-    }
-    delete [] personas_intercambio;
-    delete [] personas_no_intercambio;
-    delete[] personas_total;
+
     return ganador;
 }
 
