@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <fstream>
+
 using namespace std;
 
 int p;
@@ -17,7 +16,8 @@ struct Persona {
 /*****
 * int* comprar Tarjeta
 ******
-* La función comprarTarjeta genera una tarjeta de la suerte en la cual influye el nombre y el dia.
+* La función comprarTarjeta genera una tarjeta del tamaño del nombre en la cual influye el nombre y el dia.
+* se hace con un for para recorrer la tarjeta e ir asignandole los valores de la tarjeta.
 ******
 * Input:
 *   string nombre: nombre es un string el cual contiene el nombre de la persona que quiere comprar la tarjeta de la suerte.
@@ -29,7 +29,7 @@ struct Persona {
 *****/
 
 int* comprarTarjeta (string nombre, int dia, int& m){
-    m = nombre.length();  //probar funcion comprar y funcion putaje
+    m = nombre.length();  
     int* tarjeta= new int[m];
     for (int i=0; i<m; i++){
         tarjeta[i]= nombre[i]%dia;
@@ -37,30 +37,13 @@ int* comprarTarjeta (string nombre, int dia, int& m){
     return tarjeta;
 }
 
-//Hacer un array de structs de las personas
-//ESTA FUNCION LA VAN A CREAR LOS AYUDANTES
-
-Persona* arregloPersonas(int& p){
-    int m;
-    Persona* personas = new Persona[p];
-    for (int i=0; i<p; i++){
-        //m = personas[i].nombre.length(); //
-        cin >> personas[i].nombre;
-        cin >> personas[i].fecha;
-        personas[i].tamanio_tarjeta = personas[i].nombre.length();
-        personas[i].tarjeta = comprarTarjeta(personas[i].nombre,2,m); //ACA SE PUEDE CAMBIAR EL DIA IMPORTANTE
-        //Descomentar para probar funcion puntaje
-        cin >> personas[i].quiere_intercambiar;
-    }
-
-    return personas; 
-}
-
-
 /*****
 * void intercambiarTarjeta
 ******
-* La función intercambiarTarjeta
+* La función intercambiarTarjeta recibe dos punteros a structs de tipo Persona y permuta sus tarjetas
+* creando dos punteros temporales de tipo entero a las tarjetas de cada persona
+* tambien un puntero de tipo entero al tamaño de la persona
+* y luego estos se intercambian los tamaños y se le asignan las tarjetas a los punteros previamente mencionados.
 ******
 * Input:
 *   Persona* p1: Variable p1 del tipo puntero a el struct Persona, esto me da una persona.
@@ -83,7 +66,8 @@ void intercambiarTarjeta(Persona* p1, Persona* p2) {
 /*****
 * int puntaje
 ******
-* La función puntaje recibe una persona y le da el puntaje a esa persona mediante la fórmula proporcionada en la guía.
+* La función puntaje recibe una persona y le da el puntaje a esa persona sumandolo en un ciclo for
+* mediante la fórmula proporcionada en la guía.
 ******
 * Input:
 *   Persona* p1: Variable p1 del tipo puntero a el struct Persona.
@@ -95,7 +79,7 @@ void intercambiarTarjeta(Persona* p1, Persona* p2) {
 int puntaje(Persona* p1){
     int puntaje;
     puntaje = 0;
-        for (int i=0; i<p1->tamanio_tarjeta; i++){
+    for (int i=0; i<p1->tamanio_tarjeta; i++){
         puntaje += (p1->tarjeta[i])*(p1->fecha[i%10]);
     }
     return puntaje;
@@ -104,7 +88,13 @@ int puntaje(Persona* p1){
 /*****
 * Persona* unDia
 ******
-* La función unDIa 
+* La función unDIa primero genera una tarjeta a cada persona, llamando a la funcion comprarTarjeta
+* luego se crean dos arreglos para guardar las personas que quieren intercambiar, y las que no
+* luego se intercambian las tarjeta en el arreglo de personas que quieren intercambiar usando la funcion intercambiarTarjeta
+* luego se crea otro arreglo, y se unen las personas que no quieren intercambiar y las que ya intercambiaron tarjetas
+* este arreglo se pasa a un ciclo for en el cual se va llamando a la funcion puntaje
+* para asi sacar el ganador
+******
 * Input:
 *   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
 *   int dia: El dia en el que se compra la tarjeta para cada personas.
@@ -113,12 +103,12 @@ int puntaje(Persona* p1){
 *   Se retorna la persona que obtuvo más puntaje en las tarjetas.
 *****/
 
-Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
+Persona* unDia(Persona* personas, int dia){  
     for(int i=0; i<p; i++){
         int largo_nombre;
         largo_nombre = personas[i].nombre.length();
         personas[i].tarjeta = comprarTarjeta(personas[i].nombre, dia, largo_nombre); //Aca se le da una tarjeta a cada persona
-    }//HASTA ACA FUNCIONA
+    }
     Persona* personas_intercambio = new Persona[p];
     Persona* personas_no_intercambio = new Persona[p];
     int c =0;
@@ -130,7 +120,7 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
             personas_intercambio[c].tamanio_tarjeta = personas[i].tamanio_tarjeta;
             personas_intercambio[c].nombre = personas[i].nombre;
             for (int j=0;j<11;j++){
-            personas_intercambio[c].fecha[j] = *personas[j].fecha;
+                personas_intercambio[c].fecha[j] = *personas[j].fecha;
             }
             c++;
         } else{
@@ -139,7 +129,7 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
             personas_no_intercambio[no_cambio].tamanio_tarjeta = personas[i].tamanio_tarjeta;
             personas_no_intercambio[no_cambio].nombre = personas[i].nombre;
             for (int j=0;j<11;j++){
-            personas_no_intercambio[no_cambio].fecha[j] = *personas[j].fecha;
+                personas_no_intercambio[no_cambio].fecha[j] = *personas[j].fecha;
             }
             no_cambio++;
         }
@@ -156,28 +146,20 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
             }
         }
     }
-    int neicho =0;
-    int miguel = 0;
+    int x =0;
+    int y = 0;
     Persona* personas_total = new Persona[p];
     for (int i =0;i<p;i++){
         if (i<c){    
-            personas_total[i] = personas_intercambio[neicho];
-            neicho ++;
+            personas_total[i] = personas_intercambio[x];
+            x ++;
         }
         else{
-            personas_total[i] = personas_no_intercambio[miguel];
-            miguel++;   
+            personas_total[i] = personas_no_intercambio[y];
+            y++;   
         }
     }
 
-    for (int i=0;i <c;i++){
-        delete personas_intercambio[i].tarjeta;
-    }
-    for (int i=0;i <no_cambio;i++){
-        delete personas_no_intercambio[i].tarjeta;
-    }
-
-    //calculo ganador
     Persona* ganador;
     int puntos_max =0;
     for (int i=0;i<p;i++){
@@ -188,7 +170,14 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
         }
 
     } 
-    
+    for (int i=0;i <c;i++){
+        delete personas_intercambio[i].tarjeta;
+    }
+    for (int i=0;i <no_cambio;i++){
+        delete personas_no_intercambio[i].tarjeta;
+    }
+    delete [] personas_intercambio;
+    delete [] personas_no_intercambio;
     delete[] personas_total;
     return ganador;
 }
@@ -196,7 +185,8 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
 /*****
 * void variosDias
 ******
-* La función variosDias 
+* La función variosDias llama a la funcion unDia la cual retorna el ganador
+* luego imprime por pantalla el nombre, fecha de nacimiento y puntaje de dicho ganador.
 * Input:
 *   Persona* personas: Variable personas del tipo puntero a el struct Persona, el cual tiene personas dentro.
 *   int cant_dias: Variable cant_dias del tipo entero que tiene la cantidad de dias yotales a realizar.
@@ -216,29 +206,5 @@ void variosDias (Persona* personas, int cant_dias){
 
 
 int main(){
-    cin >> p;
-    Persona* personas = arregloPersonas(p);
-    for (int i = 0; i<p; i++){
-        cout << personas[i].nombre << " " << personas[i].fecha << " " << personas[i].tamanio_tarjeta << " ";
-        for ( int j=0; j < personas[i].tamanio_tarjeta; j++){
-            if(j==0){
-                cout << "[";
-            }
-            cout << personas[i].tarjeta[j] << ",";
-            if(j==(personas[i].tamanio_tarjeta)-1){
-                cout << "]";
-            }
-        }
-        cout << " " << personas[i].quiere_intercambiar << endl;
-       
-    }
-    cout<<"\n";
-    variosDias(personas,2);
-
-    
-    for (int i=0;i <p;i++){
-        delete personas[i].tarjeta;
-    }
-    delete[] personas;
     return 0;
 }

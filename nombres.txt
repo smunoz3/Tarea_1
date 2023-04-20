@@ -1,0 +1,3 @@
+Miguel Huerta, 202273602-k, 201 Principalmente trabajo en listas_suerte.cpp
+Ignacio Gomez, 202273553-8, 201 Ayuda en arreglar funciones en listas_suerte.cpp e hizo los comentarios.
+Sebastian Muñoz, 202273534-1, 201 Principalmente trabajo en casinos.cpp
