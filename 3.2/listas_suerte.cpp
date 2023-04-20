@@ -73,17 +73,12 @@ Persona* arregloPersonas(int& p){
 void intercambiarTarjeta(Persona* p1, Persona* p2) {     
     int* temp = p1->tarjeta; 
     int* temp_2 = p2->tarjeta;
-    //cout<<"P2 "<<p2->tamanio_tarjeta<<" P1 "<<p1->tamanio_tarjeta<<endl;
     int temp_tam = p1->tamanio_tarjeta; 
     p1->tamanio_tarjeta = p2->tamanio_tarjeta; 
     p2->tamanio_tarjeta = temp_tam;
-    //cout<<"P2 "<<p2->tamanio_tarjeta<<" P1 "<<p1->tamanio_tarjeta<<endl;
     p1->tarjeta = temp_2;
     p2->tarjeta = temp;
 }
-//NO PUEDO HACER ESTA FUNCION CULIA POR EL PICO ME RINDO
-// PUTOS NIGGERS
-// ODIO ISRAEL
 
 /*****
 * int puntaje
@@ -142,8 +137,10 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
             personas_no_intercambio[no_cambio].tarjeta = personas[i].tarjeta;
             personas_no_intercambio[no_cambio].quiere_intercambiar = personas[i].quiere_intercambiar;
             personas_no_intercambio[no_cambio].tamanio_tarjeta = personas[i].tamanio_tarjeta;
-             personas_no_intercambio[no_cambio].nombre = personas[i].nombre;
-             //personas_no_intercambio[no_cambio].fecha = personas[i].fecha;
+            personas_no_intercambio[no_cambio].nombre = personas[i].nombre;
+            for (int j=0;j<11;j++){
+            personas_no_intercambio[no_cambio].fecha[j] = *personas[j].fecha;
+            }
             no_cambio++;
         }
     }
@@ -173,8 +170,13 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
         }
     }
 
-    //delete[] personas_intercambio;
-    //delete[] personas_no_intercambio;
+    for (int i=0;i <c;i++){
+        delete personas_intercambio[i].tarjeta;
+    }
+    for (int i=0;i <no_cambio;i++){
+        delete personas_no_intercambio[i].tarjeta;
+    }
+
     //calculo ganador
     Persona* ganador;
     int puntos_max =0;
@@ -186,7 +188,8 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
         }
 
     } 
-    //delete[] personas_total;
+    
+    delete[] personas_total;
     return ganador;
 }
 
@@ -202,14 +205,16 @@ Persona* unDia(Persona* personas, int dia){  //FALTA TERMINAR
 *   No se retorna nada ya que la función es de tipo void.
 *****/
 
-void variosDias (Persona* personas, int cant_dias){ //TOO EZ
+void variosDias (Persona* personas, int cant_dias){ 
     Persona* ganador;
     for (int i=1; i<=cant_dias; i++){
         ganador = unDia(personas,i);
         cout << ganador->nombre << " " << ganador->fecha << " " << puntaje(ganador) << endl;
     } 
 }
-//NO ME SIRVE ESTA WEA ME QUIERO MATAR
+
+
+
 int main(){
     cin >> p;
     Persona* personas = arregloPersonas(p);
@@ -230,9 +235,10 @@ int main(){
     cout<<"\n";
     variosDias(personas,2);
 
-    delete[] personas;
+    
     for (int i=0;i <p;i++){
         delete personas[i].tarjeta;
     }
+    delete[] personas;
     return 0;
 }
