@@ -198,7 +198,6 @@ void variosDias (Persona* personas, int cant_dias){
 }
 
 
-
 int main(){
     return 0;
 }

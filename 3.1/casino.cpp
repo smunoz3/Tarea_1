@@ -92,3 +92,7 @@ bool puedeConsumir(char* rut, int servicio, string consumos_dia){
     file_binario.close();
     return retorno;
 };
+
+int main(){
+    return 0;
+}
